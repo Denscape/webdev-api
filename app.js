@@ -193,7 +193,6 @@ function displayForecast() {
     }).join('');
 }
 
-// Load Popular Cities Weather
 async function loadPopularCities() {
     const container = document.getElementById('citiesContainer');
     container.innerHTML = '<div class="col-12"><p class="text-center">Loading popular cities...</p></div>';
@@ -210,7 +209,6 @@ async function loadPopularCities() {
     displayCities(citiesData);
 }
 
-// Display Cities
 function displayCities(cities) {
     const container = document.getElementById('citiesContainer');
 
