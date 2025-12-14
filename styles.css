@@ -1,0 +1,102 @@
+:root {
+    --weather-blue: #2196F3;
+    --weather-orange: #FF9800;
+    --weather-light: #E3F2FD;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-bottom: 50px;
+}
+
+.navbar {
+    background: linear-gradient(135deg, var(--weather-blue) 0%, var(--weather-orange) 100%) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-tabs .nav-link {
+    color: #495057;
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--weather-blue);
+    font-weight: bold;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.weather-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    height: 100%;
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+}
+
+.weather-icon {
+    font-size: 4rem;
+}
+
+.temperature {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--weather-blue);
+}
+
+.city-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.weather-detail {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.weather-detail i {
+    margin-right: 0.5rem;
+    color: var(--weather-orange);
+}
+
+.btn-primary {
+    background-color: var(--weather-blue);
+    border-color: var(--weather-blue);
+}
+
+.btn-primary:hover {
+    background-color: var(--weather-orange);
+    border-color: var(--weather-orange);
+}
+
+#apiKeyCard {
+    background: linear-gradient(135deg, #fff 0%, var(--weather-light) 100%);
+}
+
+#loadingSpinner {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
