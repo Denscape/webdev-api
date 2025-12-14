@@ -1,1 +1,1 @@
-# webdev-api
+A simple, user-friendly weather application that provides real-time weather information and 7-day forecasts for cities worldwide.
