@@ -14,7 +14,6 @@ const POPULAR_CITIES = [
     { name: 'Manila', lat: 14.5995, lon: 120.9842, country: 'Philippines' }
 ];
 
-let currentCity = '';
 let forecastData = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -88,12 +87,11 @@ async function searchWeather() {
         return;
     }
 
-    currentCity = cityData;
     const weather = await fetchWeather(cityData.latitude, cityData.longitude);
 
     if (weather) {
         displayCurrentWeather(weather, cityData);
-        loadForecast(cityData.latitude, cityData.longitude);
+        displayForecast(weather.daily);
     }
 }
 
@@ -152,26 +150,18 @@ function displayCurrentWeather(data, cityData) {
     `;
 }
 
-async function loadForecast(lat, lon) {
-    const data = await fetchWeather(lat, lon);
-
-    if (data && data.daily) {
-        forecastData = data.daily;
-        displayForecast();
-    }
-}
-
-function displayForecast() {
+function displayForecast(dailyData = forecastData) {
     const container = document.getElementById('forecastContainer');
 
-    if (!forecastData || !forecastData.time) {
+    if (!dailyData || !dailyData.time) {
         container.innerHTML = '<div class="col-12"><p class="text-center text-muted">Search for a city to see the forecast</p></div>';
         return;
     }
 
-    container.innerHTML = forecastData.time.slice(0, 7).map((day, index) => {
+    forecastData = dailyData;
+    container.innerHTML = dailyData.time.slice(0, 7).map((day, index) => {
         const date = new Date(day);
-        const weatherInfo = getWeatherDescription(forecastData.weathercode[index]);
+        const weatherInfo = getWeatherDescription(dailyData.weathercode[index]);
 
         return `
             <div class="col-md-4 col-lg-2">
@@ -179,11 +169,11 @@ function displayForecast() {
                     <div class="card-body text-center">
                         <h6>${date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</h6>
                         <div style="font-size: 3rem;">${weatherInfo.icon}</div>
-                        <div class="h4 text-primary">${Math.round(forecastData.temperature_2m_max[index])}°C</div>
+                        <div class="h4 text-primary">${Math.round(dailyData.temperature_2m_max[index])}°C</div>
                         <small>${weatherInfo.desc}</small>
                         <div class="mt-2">
                             <small class="text-muted">
-                                Low: ${Math.round(forecastData.temperature_2m_min[index])}°C
+                                Low: ${Math.round(dailyData.temperature_2m_min[index])}°C
                             </small>
                         </div>
                     </div>
@@ -264,4 +254,9 @@ function showError(message) {
 
 function hideError() {
     document.getElementById('errorAlert').classList.add('d-none');
+}
+
+function quickSearch(cityName) {
+    document.getElementById('citySearch').value = cityName;
+    searchWeather();
 }
